@@ -1,0 +1,74 @@
+Guards nb days:
+	 1051: 15
+	 509: 10
+	 1061: 2
+	 1117: 6
+	 2399: 18
+	 2851: 16
+	 349: 7
+	 691: 13
+	 967: 1
+	 1091: 11
+	 2447: 11
+	 3559: 13
+	 163: 20
+	 353: 14
+	 1153: 3
+	 1307: 17
+	 1601: 18
+	 2153: 15
+	 2267: 17
+	 2333: 8
+	 269: 10
+	 3203: 12
+	 2617: 8
+Guards awake:
+	 2399: 10h12m0s (max: 51m0s)
+	 3203: 6h45m0s (max: 39m0s)
+	 1117: 3h43m0s (max: 44m0s)
+	 2333: 4h45m0s (max: 51m0s)
+	 2447: 5h58m0s (max: 40m0s)
+	 2617: 5h19m0s (max: 45m0s)
+	 509: 5h54m0s (max: 41m0s)
+	 1051: 9h17m0s (max: 55m0s)
+	 1061: 2h0m0s (max: 59m0s)
+	 1091: 6h54m0s (max: 45m0s)
+	 2851: 9h8m0s (max: 44m0s)
+	 2267: 9h4m0s (max: 56m0s)
+	 3559: 9h34m0s (max: 55m0s)
+	 691: 8h35m0s (max: 50m0s)
+	 967: 1h0m0s (max: 59m0s)
+	 1153: 3h0m0s (max: 59m0s)
+	 1307: 10h58m0s (max: 55m0s)
+	 1601: 10h32m0s (max: 44m0s)
+	 2153: 9h17m0s (max: 54m0s)
+	 163: 12h33m0s (max: 31m0s)
+	 269: 6h16m0s (max: 44m0s)
+	 349: 3h52m0s (max: 31m0s)
+	 353: 8h7m0s (max: 35m0s)
+Guards asleep:
+	 353: 5h53m0s (max: 50m0s)
+	 509: 4h6m0s (max: 49m0s)
+	 1307: 6h2m0s (max: 45m0s)
+	 2617: 2h41m0s (max: 48m0s)
+	 2851: 6h52m0s (max: 43m0s)
+	 3559: 3h26m0s (max: 48m0s)
+	 163: 7h27m0s (max: 43m0s)
+	 349: 3h8m0s (max: 42m0s)
+	 691: 4h25m0s (max: 30m0s)
+	 2153: 5h43m0s (max: 40m0s)
+	 2267: 7h56m0s (max: 49m0s)
+	 2333: 3h15m0s (max: 47m0s)
+	 1051: 5h43m0s (max: 38m0s)
+	 2399: 7h48m0s (max: 50m0s)
+	 2447: 5h2m0s (max: 41m0s)
+	 269: 3h44m0s (max: 39m0s)
+	 1091: 4h6m0s (max: 52m0s)
+	 1117: 2h17m0s (max: 40m0s)
+	 1601: 7h28m0s (max: 36m0s)
+	 3203: 5h15m0s (max: 48m0s)
+Guards most awake: 163
+Guards most awake during: 31m0s
+Guards most asleep: 2267
+Guards most asleep during: 49m0s
+4655280000000000

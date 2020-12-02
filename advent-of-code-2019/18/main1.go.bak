@@ -1,0 +1,147 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"time"
+)
+
+func process1(filename string) {
+	fmt.Println("---")
+	fmt.Println("process")
+
+	r := &Robot{}
+	keys := map[[2]int]rune{}
+	doors := map[[2]int]rune{}
+
+	parseData := func() {
+		r.Init()
+		file, _ := os.Open(filename)
+		fscanner := bufio.NewScanner(file)
+		x, y := 0, 0
+		for fscanner.Scan() {
+			l := fscanner.Text()
+			x = 0
+			for _, c := range l {
+				switch c {
+				case '#':
+					r.SetXY(x, y, CASE_WALL)
+				case '.':
+					r.SetXY(x, y, CASE_EMPTY)
+				case '@':
+					r.SetXY(x, y, CASE_EMPTY)
+					// r.SetXY(x-1, y, CASE_WALL)
+					r.X = x
+					r.Y = y
+				default:
+					if int(c) < 91 {
+						doors[[2]int{x, y}] = c
+						// doors[[2]int{x, y}] = c + ('A' - 'a')
+						r.SetXY(x, y, CASE_DOOR)
+					} else {
+						// keys[[2]int{x, y}] = c
+						keys[[2]int{x, y}] = c + ('A' - 'a')
+						r.SetXY(x, y, CASE_KEY)
+					}
+				}
+				x++
+			}
+			y++
+		}
+	}
+
+	parseData()
+
+	doorsGet := map[rune]rune{}
+	keysGet := map[rune]rune{}
+	canOpenDoor := func() bool {
+		x, y := r.NextForward()
+		v := r.GetXY(x, y)
+		if v == CASE_DOOR {
+			_, ok := keysGet[doors[[2]int{x, y}]]
+			return ok
+		}
+		return true
+	}
+
+	t := 0
+	r.Direction = UP
+	r.MapLength[[2]int{r.X, r.Y}] = 0
+	fmt.Printf("Keys: %v\n", keysGet)
+	fmt.Printf("X/Y: %d/%d\n", r.X, r.Y)
+	r.DrawMap(true, true)
+	for len(keysGet) != len(keys) {
+		for r.GetXY(r.X, r.Y) != CASE_KEY && r.GetXY(r.X, r.Y) != CASE_DOOR {
+			r.TurnLeft()
+			v := r.GetXY(r.NextForward())
+			if v == CASE_WALL || !canOpenDoor() {
+				r.TurnRight()
+			}
+			v = r.GetXY(r.NextForward())
+			if v == CASE_WALL || !canOpenDoor() {
+				r.TurnRight()
+			}
+			v = r.GetXY(r.NextForward())
+			if v == CASE_WALL || !canOpenDoor() {
+				r.TurnRight()
+			}
+			r.MoveForward()
+			if _, ok := r.MapLength[[2]int{r.X, r.Y}]; !ok {
+				r.RecordLength()
+			}
+			time.Sleep(time.Millisecond * 50)
+			fmt.Print("\033[H\033[2J")
+			fmt.Printf("Keys: %v\n", keysGet)
+			fmt.Printf("X/Y: %d/%d\n", r.X, r.Y)
+			r.DrawMap(true, false)
+		}
+
+		if r.GetXY(r.X, r.Y) == CASE_KEY {
+			k := keys[[2]int{r.X, r.Y}]
+			keysGet[k] = k
+			fmt.Printf("Key found: %c !\n", k)
+			t += r.MapLength[[2]int{r.X, r.Y}]
+			r.MapLength = map[[2]int]int{}
+			r.MapLength[[2]int{r.X, r.Y}] = 0
+			r.SetXY(r.X, r.Y, CASE_EMPTY)
+		}
+
+		if r.GetXY(r.X, r.Y) == CASE_DOOR {
+			d := doors[[2]int{r.X, r.Y}]
+			doorsGet[d] = d
+			fmt.Printf("Door found: %c !\n", d)
+			t += r.MapLength[[2]int{r.X, r.Y}]
+			r.MapLength = map[[2]int]int{}
+			r.MapLength[[2]int{r.X, r.Y}] = 0
+			r.SetXY(r.X, r.Y, CASE_EMPTY)
+		}
+
+		fmt.Print("\033[H\033[2J")
+		fmt.Printf("Keys: %v\n", keysGet)
+		fmt.Printf("Doors: %v\n", doorsGet)
+		fmt.Printf("X/Y: %d/%d\n", r.X, r.Y)
+		r.DrawMap(true, false)
+	}
+
+	fmt.Println()
+	fmt.Println()
+	fmt.Printf("Total: %d\n", t)
+
+}
+
+func main1() {
+	// processCodeAmp([][]int{parseLine("109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99")})
+	// processCodeAmp([][]int{parseLine("1102,34915192,34915192,7,4,7,99,0")})
+	// processCodeAmp([][]int{parseLine("104,1125899906842624,99")})
+	// process1("test.txt")
+	// process1("test2.txt")
+	// process1("test3.txt")
+	// process1("test4.txt")
+	process1("test5.txt")
+	// process1("data.txt")
+	// processCodeChainAmp([][]int{parseLine("109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99")})
+	// processCodeChainAmp([][]int{parseLine("1102,34915192,34915192,7,4,7,99,0")})
+	// processCodeChainAmp([][]int{parseLine("104,1125899906842624,99")})
+	// processCodeChainAmp(parseFile("data.txt"))
+}
